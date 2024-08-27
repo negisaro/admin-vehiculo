@@ -1,0 +1,41 @@
+<div class="container py-4 mx-5">
+  <div class="card bg-light">
+
+    <h2>Listado de Productos</h2>
+    <!--componente hijo -->
+    <product-form (newProductEvent)="addProduct()"></product-form>
+
+    @if (products.length>0) {
+
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Sku</th>
+          <th>Precio</th>
+          <th colspan="3" style="text-align: center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of products; track $index){
+        <tr>
+          <td>{{product.id}}</td>
+          <td>{{product.name}}</td>
+          <td>{{product.description}}</td>
+          <td>{{product.sku}}</td>
+          <td>{{product.price}}</td>
+          <th><button class="btn btn-sm btn-outline-success"
+              [routerLink]="['/product/edit', product.id]">Update</button></th>
+          <th><button type="submit" class="btn btn-sm btn-outline-danger" (click)="onDeleteProduct()">Delete</button></th>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }@else {
+    <div>Lo sentimos no hay registros de productos</div>
+    }
+  </div>
+  <paginator [paginator]="paginator" [url]="'/product/page'" />
+</div>
